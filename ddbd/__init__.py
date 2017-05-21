@@ -1,1 +1,1 @@
-from ddbd import ddbd
+from .ddbd import ddbd

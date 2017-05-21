@@ -27,7 +27,7 @@ class DynamoDict(collections.MutableMapping):
 
         # Make sure 'value' is a dict so each key/value will be saved to thes object
         assert isinstance(value, dict)
-        print 'key: ', key, 'value: ', value
+        print('key: ', key, 'value: ', value)
 
         # Don't overwrite the inserted value object
         params = value.copy()
@@ -35,11 +35,11 @@ class DynamoDict(collections.MutableMapping):
         #add hashkey/key to these main params
         params[self.hash_key] = key
 
-        print params
+        print(params)
         # put_item returns false when not successful, so thrown an exception
         if not self.table.put_item(data=params, overwrite=True):
             raise Exception('item save failure')
-        print 'item saved'
+        print('item saved')
 
     def __delitem__(self, key):
         params = {self.hash_key : key}
@@ -68,6 +68,6 @@ class DynamoKeyIter(object):
 
     def __iter__(self):
         return self
-    def next(self):
-        item = self.scanner.next()
+    def __next__(self):
+        item = next(self.scanner)
         return dict(item)[self.hash_key]

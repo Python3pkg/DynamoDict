@@ -1,13 +1,13 @@
 from boto import dynamodb2
 from boto.dynamodb2.table import Table
-from dynamodict import DynamoDict
+from .dynamodict import DynamoDict
 import time
 
 class ddbd(object):
 
   def __init__(self, key=None, secret=None, region=None):
     self.conn = dynamodb2.connect_to_region(region, aws_access_key_id=key, aws_secret_access_key=secret)
-    print 'init', self.conn
+    print('init', self.conn)
 
   def list(self):
     return self.conn.list_tables()['TableNames']
@@ -25,7 +25,7 @@ class ddbd(object):
         table = self.conn.create_table(
             attribute_definitions=[{'AttributeName': 'key', 'AttributeType': 'S'}],
             table_name=table_name,
-            key_schema=[{u'AttributeName': u'key', u'KeyType': u'HASH'}],
+            key_schema=[{'AttributeName': 'key', 'KeyType': 'HASH'}],
             provisioned_throughput={'ReadCapacityUnits' : 1, 'WriteCapacityUnits': 1})
 
         if block:
